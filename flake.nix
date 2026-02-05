@@ -23,7 +23,7 @@
       in {
         options.services.groupme-mirror = {
           enable = mkEnableOption "GroupMe to Discord mirror service";
-          envFile = mkOption {
+          environmentFile = mkOption {
             type = types.str;
             default = "/etc/groupme-mirror.env";
             description = "Path to file containing GROUP_ID, GROUPME_ACCESS_TOKEN, and DISCORD_WEBHOOK_URL";
@@ -41,7 +41,7 @@
             after = [ "network.target" ];
             serviceConfig = {
               ExecStart = "${self.packages.${pkgs.system}.default}/bin/groupme-mirror";
-              EnvironmentFile = cfg.envFile;
+              EnvironmentFile = cfg.environmentFile;
 
               DynamicUser = true;
               StateDirectory = "groupme-mirror";
